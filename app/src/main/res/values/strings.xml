@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">VkSolution</string>
     <integer name="com_vk_sdk_AppId">5635092</integer>
+
+    <string name="sign_in">Sign in</string>
+    <string name="logout">Logout</string>
+
 </resources>
