@@ -1,4 +1,8 @@
 # VkSolution
+
+Apk: https://drive.google.com/open?id=0BxSbPdHgnw5TYVItOGxQQ2VXT2c
+
+Задание ->
 Разработать приложение, которое:
 
 1. Авторизуется в VK.
@@ -8,6 +12,6 @@
 
 Приложение: 
 
-Apk: https://drive.google.com/open?id=0BxSbPdHgnw5TdVpiV053NWVWWFU
+
 
 
