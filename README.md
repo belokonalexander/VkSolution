@@ -8,6 +8,6 @@
 
 <--- Дополнительно --->
 
-Apk file: 
+Apk file: https://drive.google.com/open?id=0BxSbPdHgnw5TdVpiV053NWVWWFU
 
 
