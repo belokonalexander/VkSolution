@@ -1,12 +1,10 @@
 package Helper;
 
 import android.content.Context;
-import android.util.Log;
+
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 

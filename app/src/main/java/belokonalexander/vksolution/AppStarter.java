@@ -1,7 +1,6 @@
 package belokonalexander.vksolution;
 
 import android.app.Application;
-import android.content.Intent;
 
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;

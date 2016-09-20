@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import com.vk.sdk.VKAccessToken;
 
 import java.io.File;
-import java.util.HashMap;
+
 
 /**
  * Created by admin on 19.09.2016.

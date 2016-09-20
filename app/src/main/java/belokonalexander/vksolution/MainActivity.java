@@ -15,9 +15,8 @@ import com.vk.sdk.api.VKError;
 import Fragments.LoginFragment;
 import Fragments.SuccessLoginFragment;
 import Helper.CurrentUser;
-import Helper.LogSystem;
 import Helper.SharedAppPrefs;
-import Models.VkUser;
+
 
 public class MainActivity extends AppCompatActivity implements LoginActivity{
 

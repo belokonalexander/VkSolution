@@ -20,18 +20,11 @@ import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import Helper.GlideTransformers.GlideCircleTransformation;
-import Helper.LogSystem;
-import Helper.SharedAppPrefs;
 import Helper.CurrentUser;
-import Models.VkUser;
 import belokonalexander.vksolution.LoginActivity;
-import belokonalexander.vksolution.MainActivity;
 import belokonalexander.vksolution.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
