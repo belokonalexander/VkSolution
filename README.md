@@ -6,8 +6,7 @@
 3. Сохраняет информацию профиля и фотографию.
 4. При повторном открытии приложения загружает фотографию и данные профиля на экран.
 
-<--- Дополнительно --->
-
-Apk file: https://drive.google.com/open?id=0BxSbPdHgnw5TdVpiV053NWVWWFU
+Приложение: 
+Apk: https://drive.google.com/open?id=0BxSbPdHgnw5TdVpiV053NWVWWFU
 
 
