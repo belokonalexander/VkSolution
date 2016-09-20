@@ -25,13 +25,9 @@ public class AppStarter  extends Application{
             public void onVKAccessTokenChanged(VKAccessToken oldToken, VKAccessToken newToken) {
                 if (newToken == null) {
 
+                    //TODO обработка невалидного токена
                     LogSystem.LogThis("Токен не валидный");
-                    /*Intent intent = new Intent();
-                    intent.setClass(getBaseContext(),Intro.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);*/
+
                 }
             }
         };

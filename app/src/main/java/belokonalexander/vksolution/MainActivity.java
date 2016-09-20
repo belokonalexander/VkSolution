@@ -19,11 +19,10 @@ import Helper.LogSystem;
 import Helper.SharedAppPrefs;
 import Models.VkUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginActivity{
 
 
     FragmentManager fm;
-    VkUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
-
         if(fragment==null){
 
             fragment = (VKAccessToken.currentToken()!=null) ? new SuccessLoginFragment() : new LoginFragment();
-
             fm.beginTransaction()
                         .add(R.id.fragmentContainer,fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -67,12 +64,13 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onError(VKError error) {
-                LogSystem.LogThis("VKError: " + error.errorMessage);
+                //авторизация не удалась
             }
         }));
     }
 
 
+    @Override
     public void logout(){
         VKSdk.logout();
         CurrentUser.getInstance().deleteUserData();
@@ -81,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
 
+    }
+
+    @Override
+    public void login() {
+        VKSdk.login(this,"");
     }
 
 

@@ -5,6 +5,7 @@ package Models;
  */
 public class VkUser {
 
+
     private String firstName;
     private String lastName;
     private String image;
@@ -43,4 +44,9 @@ public class VkUser {
         return firstName + " " + lastName + " " + image;
 
     }
+
+    public String getPhotoFileName(){
+        return lastName+"_"+firstName+"_photo";
+    }
+
 }

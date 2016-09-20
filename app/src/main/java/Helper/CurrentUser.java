@@ -1,5 +1,7 @@
 package Helper;
 
+import android.content.SharedPreferences;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,24 +24,37 @@ public class CurrentUser extends VkUser {
 
     }
 
-    //async method
-    public void init(JSONObject jsonObject){
+    //async only method
+    synchronized public Boolean init(JSONObject jsonObject){
         try {
 
-            //TODO Glide будет кешировать данные, однако можно сохранить картинку на диск
+            String lastName = jsonObject.getString("last_name");
+            String firstName = jsonObject.getString("first_name");
+            String image = jsonObject.getString("photo_max_orig");
+
+            currentUser.setLastName(lastName);
+            currentUser.setFirstName(firstName);
+
+            LogSystem.LogThis("Сохраняем файл");
 
 
-            currentUser.setLastName(jsonObject.getString("last_name"));
-            currentUser.setFirstName(jsonObject.getString("first_name"));
-            currentUser.setImage(jsonObject.getString("photo_max_orig"));
-
+            if(GlobalShell.saveFileFromUrl(image, getPhotoFileName(), SharedAppPrefs.appContext))
+                currentUser.setImage(SharedAppPrefs.appContext.getFilesDir()+"/"+ getPhotoFileName());
+            else currentUser.setImage(image);
 
             SharedAppPrefs.saveUserData(currentUser.getFirstName(),currentUser.getLastName(),currentUser.getImage());
 
-        }catch (JSONException e) {
-            LogSystem.LogThis("Error: " + e);
+        } catch (JSONException e) {
+
+            return false;
+
+        } catch (NullPointerException e) {
+            //пользователь уже вышел, т.е во время загрузки фото был logout
+
+            return false;
         }
 
+        return true;
     }
 
     public static synchronized CurrentUser getInstance(){
@@ -53,7 +68,10 @@ public class CurrentUser extends VkUser {
                 currentUser.setImage(SharedAppPrefs.getImage());
                 currentUser.isLoadedLocal = true;
 
-            } else currentUser.isLoadedLocal = false;
+            } else {
+                currentUser.isLoadedLocal = false;
+
+            }
 
         }
 
@@ -64,4 +82,7 @@ public class CurrentUser extends VkUser {
         SharedAppPrefs.deleteUserData();
         currentUser = null;
     }
+
+
+
 }

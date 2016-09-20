@@ -22,11 +22,15 @@ import com.vk.sdk.api.VKResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import Helper.GlideTransformers.GlideCircleTransformation;
 import Helper.LogSystem;
 import Helper.SharedAppPrefs;
 import Helper.CurrentUser;
 import Models.VkUser;
+import belokonalexander.vksolution.LoginActivity;
 import belokonalexander.vksolution.MainActivity;
 import belokonalexander.vksolution.R;
 import butterknife.BindView;
@@ -40,7 +44,7 @@ public class SuccessLoginFragment  extends Fragment{
 
     @OnClick (R.id.vk_logout_button)
     protected void logoutButtonClick(){
-        ((MainActivity)getActivity()).logout();
+        ((LoginActivity)getActivity()).logout();
     }
 
     @BindView(R.id.user_avatar)
@@ -67,12 +71,28 @@ public class SuccessLoginFragment  extends Fragment{
                         public void onComplete(VKResponse response) {
                             super.onComplete(response);
 
-                            try {
-                                CurrentUser.getInstance().init(response.json.getJSONArray("response").getJSONObject(0));
-                                bindUser();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                                final VKResponse finalResponse = response;
+
+                                new AsyncTask<Void, Void, Boolean>() {
+
+                                    @Override
+                                    protected Boolean doInBackground(Void... params) {
+                                        try {
+                                            return CurrentUser.getInstance().init(finalResponse.json.getJSONArray("response").getJSONObject(0));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        return null;
+                                    }
+
+                                    @Override
+                                    protected void onPostExecute(Boolean aVoid) {
+                                        super.onPostExecute(aVoid);
+                                        if(aVoid)
+                                            bindUser();
+                                    }
+                                }.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+
 
                         }
 
@@ -106,10 +126,23 @@ public class SuccessLoginFragment  extends Fragment{
 
 
     void bindUser(){
-        LogSystem.LogThis("Биндим данные");
-        userName.setText(CurrentUser.getInstance().getFullName());
 
-        Glide.with(getContext()).load(CurrentUser.getInstance().getImage()).crossFade().error(R.drawable.vk_gray_transparent_shape).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(userAvatar);
+        // Хранение картинки можно было организовать проще - с помощью Glide кеширования
+        // картинка хранилась бы просто в виде url'a
+        // для демонстрации метода загрузки и сохранения файла по url во внутреннее хранилище, отключил кеширование
+
+        try {
+            userName.setText(CurrentUser.getInstance().getFullName());
+            Glide.with(getContext()).load(CurrentUser.getInstance().getImage())
+                    .crossFade()
+                    .error(R.drawable.vk_gray_transparent_shape)
+                    .transform(new GlideCircleTransformation(getContext()))
+                    .skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(userAvatar);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }
 
 }

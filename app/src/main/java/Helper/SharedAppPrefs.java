@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.vk.sdk.VKAccessToken;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -14,15 +15,15 @@ public class SharedAppPrefs {
 
     private static final String PREFS = "settings";
 
-    private static final String _VK_ACCESS_TOKEN = "_vk_token";
+    public static final String _VK_ACCESS_TOKEN = "_vk_token";
 
-    private static final String _USER_FIRST_NAME = "_user_first_name";
-    private static final String _USER_LAST_NAME = "_user_last_name";
-    private static final String _USER_IMAGE = "_user_image";
+    public static final String _USER_FIRST_NAME = "_user_first_name";
+    public static final String _USER_LAST_NAME = "_user_last_name";
+    public static final String _USER_IMAGE = "_user_image";
 
     private  static SharedPreferences Settings;
 
-    private static Context appContext;
+    public static Context appContext;
 
 
     public static void InitPrefs(Context context)
@@ -57,6 +58,16 @@ public class SharedAppPrefs {
         SharedPreferences.Editor editor = Settings.edit();
         editor.remove(_USER_FIRST_NAME);
         editor.remove(_USER_LAST_NAME);
+
+        String fileName = Settings.getString(_USER_IMAGE, null);
+         if(fileName!=null){
+
+             File file = new File(fileName);
+             file.delete();
+
+         }
+
+
         editor.remove(_USER_IMAGE);
         editor.apply();
     }

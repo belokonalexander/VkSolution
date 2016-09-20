@@ -16,6 +16,7 @@ import com.vk.sdk.api.VKError;
 
 import Helper.LogSystem;
 import Helper.SharedAppPrefs;
+import belokonalexander.vksolution.LoginActivity;
 import belokonalexander.vksolution.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,11 +29,7 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.vk_aut_button)
     protected void onClick(){
-        try {
-            VKSdk.login(getActivity(),"");
-        } catch (Exception e) {
-            LogSystem.LogThis(" VK AUT ERROR!");
-        }
+        ((LoginActivity)getActivity()).login();
     }
 
 
